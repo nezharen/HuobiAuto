@@ -27,7 +27,7 @@ def doWork():
         print("价格穿越下轨，产生卖出信号")
         account_info = HuobiService.getAccountInfo(ACCOUNT_INFO)
         if float(account_info['available_ltc_display']) > MIN_UNIT_LTC:
-            print("正在卖出，卖出数量为" % account_info['available_ltc_display'])
+            print("正在卖出，卖出数量为%s" % account_info['available_ltc_display'].encode("ascii"))
             print HuobiService.sellMarket(COINTYPE_LTC, account_info['available_ltc_display'], None, None, SELL_MARKET)
         else:
             print("仓位不足，无法卖出")
@@ -35,7 +35,7 @@ def doWork():
         print("价格穿越上轨，产生买入信号")
         account_info = HuobiService.getAccountInfo(ACCOUNT_INFO)
         if float(account_info['available_cny_display']) > MIN_UNIT_LTC * current_price:
-            print("正在买入，下单金额为%s元" % account_info['available_cny_display'])
+            print("正在买入，下单金额为%s元" % account_info['available_cny_display'].encode("ascii"))
             print HuobiService.buyMarket(COINTYPE_LTC, account_info['available_cny_display'], None, None, BUY_MARKET)
         else:
             print("现金不足，无法下单")
